@@ -3,10 +3,22 @@
 <head>
   <title>Homework #3 - HANGMAN GAME - ATTEMPT</title>
 
+<!-- Link to external CSS -->
+        
+  <link rel="stylesheet" type="text/css" href="assets/css/style1.css">
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 </head>
+<body>
+<div class="container">
 
-<body background="https://www.cs.duke.edu/courses/spring11/cps006/assign/evilhang/hangmanimage.gif">
+
+    <!-- Jumbotron with Title -->
+    <div class="jumbotron">
+      <h1 class="text-center"><strong>HANGMAN THE GAME</strong></h1>
+      <h4 class="text-center">BREAKFAST EDITION</h4>
+    </div>
 
 <!-- When we start playing the game, our HTML will be placed into this div. -->
     <div id="game">
@@ -17,11 +29,11 @@
 
   <script type="text/javascript">
 
-	//variables
-	var wins = 0;
-	var losses = 0;
-	var lettersGuessed = [];
-	var words = ["pancake", "bacon", "egg"];
+  //variables
+  var wins = 0;
+  var losses = 0;
+  var lettersGuessed = [];
+  var words = ["pancake", "bacon", "egg"];
   var word = words[Math.floor(Math.random() * words.length)];
 
   console.log("word variable: " + word);
@@ -43,7 +55,7 @@
 //THE CODE BEGINS HERE.  I HAVE  WHILE LOOP THAT WILL RUN AS LONG AS THE REMAINING LETTERS IS LONGER THAN 0.  REMAINING LETTERS = LENGTH OF WORD MINUS LETTERS GUESSED.
 
 //I HAVE TURNED THIS OFF SO I CAN CHECK THE CODE AND HOW IT APPEARS ON THE SCREEN. 
- //while ((remainingLetters > 0)) {
+// while ((remainingLetters > 0)) {
 
 
 //PLAYERS PROGRESS - THIS IS THE AREA WHERE answerArray should be made into a string so that it fills the underscores.
@@ -80,11 +92,11 @@ answerArray.join("");
 //HERE I UPDATE THE WIN COUNT.  IF VARIABLE remainingLetteers REACHES 0, IT MEANS THE PLAYER HAS GUESSED ALL WORDS CORRECTLY.  SO, WINS INCREASES BY 1.
 if ((remainingLetters === 0)) {
   wins++;
-} 
+}
+
 
 // Here we create the HTML that will be injected into our div and displayed on the page.
-          var html = "<h1> The Hangman Game </h1>" +
-          "<p>PRESS ANY KEY TO GET STARTED</p>" +
+          var html = "<p>PRESS ANY KEY TO GET STARTED</p>" +
           "<p>WINS: " + wins + "</p>" +
          "<p>CURRENT WORD: " + answerArray.join() + "</p>" +
          "<p>NUMBER OF GUESSES REMAINING IS: " + remainingLetters + "</p>" +
@@ -110,6 +122,10 @@ if ((remainingLetters === 0)) {
 
 
 
-	</script>
+
+
+  </script>
 </body>
 </html>
+
+
