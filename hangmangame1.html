@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homework #3 - HANGMAN GAME - ATTEMPT</title>
+</head>
+<body background="https://www.cs.duke.edu/courses/spring11/cps006/assign/evilhang/hangmanimage.gif">
+
+<!-- When we start playing the game, our HTML will be placed into this div. -->
+    <div id="game">
+      <h1>Hangman Game</h1>
+      <p>Guess the word</p>
+      <p>(guess by pressing any letter from a to z to start playing!)</p>
+    </div>
+
+  <script type="text/javascript">
+
+	//variables
+	var wins = 0;
+	var losses = 0;
+	var lettersGuessed = [];
+	var words = ["pancake", "bacon", "egg"];
+  var word = words[Math.floor(Math.random() * words.length)];
+
+  console.log("word variable: " + word);
+
+
+ // When the user presses a key, it will run the following function...
+    document.onkeyup = function(event) {
+
+  
+//CREATING THE ANSWER ARRAY AND FILL IT WITH UNDERSCORES TO MATCH THE WORD BEING GUESSED
+    var answerArray = [];
+    for (var i = 0; i < word.length; i++){
+      answerArray[i] = "_";
+      }
+      var remainingLetters = word.length;
+
+      console.log("answer Array length: " + answerArray);
+ 
+      console.log("remainingLetters: " + remainingLetters);
+
+
+
+//THE CODE BEGINS HERE.  I HAVE  WHILE LOOP THAT WILL RUN AS LONG AS THE REMAINING LETTERS IS LONGER THAN 0.  REMAINING LETTERS = LENGTH OF WORD MINUS LETTERS GUESSED.
+
+//I HAVE TURNED THIS OFF SO I CAN CHECK THE CODE AND HOW IT APPEARS ON THE SCREEN. 
+ //while ((remainingLetters > 0)) {
+
+
+//PLAYERS PROGRESS - THIS IS THE AREA WHERE answerArray should be made into a string so that it fills the underscores.
+//I do not know if I am doing this correctly.  i found .join explanation on the net (w3school) and it appears to be correct.
+
+answerArray.join("");
+
+
+
+//PLAYER INPUT
+      // Determine which key was pressed, make it lowercase, and set it to the userGuess variable.
+      var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+        //If user presses any letter from a to z, run the game logic.
+        if ((userGuess === "a") || (userGuess === "b") || (userGuess === "c") || (userGuess === "d") || (userGuess === "e") || (userGuess === "f") || (userGuess === "g") || (userGuess === "h") || (userGuess === "i") || (userGuess === "j") || (userGuess === "k") || (userGuess === "l") || (userGuess === "m") || (userGuess === "n") || (userGuess === "o") || (userGuess === "p") || (userGuess === "q") || (userGuess === "r") || (userGuess === "s") || (userGuess === "t") || (userGuess === "u") || (userGuess === "v") || (userGuess === "w") || (userGuess === "x") || (userGuess === "y") || (userGuess === "z")) {
+         
+
+        // LETTERS ALREADY GUESSED - This moves the letters pressed by player into the  variable lettersGuessed array so that it will appear in the screen during the game. 
+        lettersGuessed.push(userGuess);
+
+}
+
+//Here i update the game - if a player has entered a valid gues (see userGuess above which lists all the letters the player can press), this should update the answerArray per the players guess.  every time a letter is guessed correctly, the count of remaining letters is reduced by 1.  
+      for (var j = 0; j < word.length; j++) {
+       if ((word[j] === userGuess)) {
+        answerArray[j] = userGuess;
+        remainingLetters--;
+                                    }
+                                             }
+                                                                            
+      
+//HERE I UPDATE THE WIN COUNT.  IF VARIABLE remainingLetteers REACHES 0, IT MEANS THE PLAYER HAS GUESSED ALL WORDS CORRECTLY.  SO, WINS INCREASES BY 1.
+if ((remainingLetters === 0)) {
+  wins++;
+} 
+
+// Here we create the HTML that will be injected into our div and displayed on the page.
+          var html = "<h1> The Hangman Game </h1>" +
+          "<p>PRESS ANY KEY TO GET STARTED</p>" +
+          "<p>WINS: " + wins + "</p>" +
+         "<p>CURRENT WORD: " + answerArray.join() + "</p>" +
+         "<p>NUMBER OF GUESSES REMAINING IS: " + remainingLetters + "</p>" +
+         "<p>LETTERS ALREADY GUESSED: " + lettersGuessed.toString() + "</p>";
+        
+        //console
+          //console.log("Current Words: " + currentWords);
+          //console.log("wins: " + wins);
+          //console.log("remaining letters: " + remainingLetters);
+         // console.log("current word: " + computerChoices[0]);
+          console.log("letters already guessed: " + lettersGuessed);
+
+ // Injecting the HTML we just created into our div and updating the game information on our page.
+          document.querySelector("#game").innerHTML = html;
+
+
+
+//}   ///while (remainingLetters > 0)
+
+
+};  //document.onkeyup = function(event) {
+
+
+
+
+	</script>
+</body>
+</html>
