@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homework #3.1 - HANGMAN GAME By Raul Vega</title>
+
+
+</head>
+
+<body>
+
+<!-- When we start playing the game, our HTML will be placed into this div. -->
+    <div id="game">
+      <h1>Hangman Game - POWER RANGERS Edition</h1>
+      <p>Guess the word</p>
+      <p>(guess by pressing any letter from a to z to start playing!)</p>
+    </div>
+
+<!--Javascript-->
+    <script type="text/javascript">
+
+
+//VARIABLES - Wins (qty of times player wins), lettersGuessed (the letters that the player has used to guess the secret word), words (words to be guessed by Player), word (word chosen at random from array words)
+	 var wins = 0;
+   var losses = 0;
+	 var lettersGuessed = [];
+	 var words = ["megazord", "poisandra", "morpher", "rangerzord", "ammonite", "blaster", "tigerzord", "dragonzord", "goldranger" ];
+   var word = words[Math.floor(Math.random() * words.length)];
+
+  //console.log("word variable: " + word);
+
+
+//CREATING THE ANSWER ARRAY AND FILL IT WITH UNDERSCORES TO MATCH THE QUANTITY OF LETTERS BEING GUESSED
+    var answerArray = [];
+        for (var i = 0; i < word.length; i++){
+        answerArray[i] = "_";
+    }
+
+//VARIABLES remainingLetters (QUANTITY OF LETTERS IN THE WORD BEING PLAYED) AND guessesremaining (PLAYER WILL HAVE 3 ADDITIONAL GUESSES TO THE LENGTH OF THE WORD)
+      var remainingLetters = word.length;
+      var guesesremaining = word.length + 3;
+
+
+//I do not know if I am doing this correctly.  i found .join explanation on the net (w3school) and it appears to be correct.
+      answerArray.join("");
+
+
+//THE CODE BEGINS HERE.  WHEN THE USER PRESSES A KEY, IT WILL RUN THE FOLLOWING FUNCTION..................
+    document.onkeyup = function(event) {
+
+
+//IF STATEMENT THAT WILL ALLOWS PLAYER TO PLAY GAME AS LONG AS THE WORDS ARRAY QUANTITY IS NOT EXCEEDED.  THIS IS USED FOR GAME TO CONTINUE. 
+
+    if (words.length > 0) {
+
+            //PLAYER INPUT BEGINS HERE
+            // VARIABLE userGuess DETERMINES WHICH KEY IS PRESSED, MAKES IT LOWER CASE
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+            //If user presses any letter from a to z, run the game logic.  It also reduces the quantity of letters guessed by user by one. 
+            if ((userGuess === "a") || (userGuess === "b") || (userGuess === "c") || (userGuess === "d") || (userGuess === "e") || (userGuess === "f") || (userGuess === "g") || (userGuess === "h") || (userGuess === "i") || (userGuess === "j") || (userGuess === "k") || (userGuess === "l") || (userGuess === "m") || (userGuess === "n") || (userGuess === "o") || (userGuess === "p") || (userGuess === "q") || (userGuess === "r") || (userGuess === "s") || (userGuess === "t") || (userGuess === "u") || (userGuess === "v") || (userGuess === "w") || (userGuess === "x") || (userGuess === "y") || (userGuess === "z")); guesesremaining--;{
+              
+              // LETTERS ALREADY GUESSED - This moves the letters pressed by player into the  variable lettersGuessed array so that it will appear in the screen during the game. 
+                  lettersGuessed.push(userGuess);
+            }
+
+
+
+              //THE GAME STATUS IS UPDATED HERE. AS THE PLAYER PRESSES A KEY (SEE ABOVE) THIS LOOK CHECKS THAT LETTER TO THE WORD BEING GUESSED.  THIS UPDATES THE answerArray EVERY TIME A LETTER IS CORRECTLY GUESSED.  THEN, THE VARIABLE remainingLetters (the quantity of letters remaining to be guessed) IS REDUCED BY 1.
+                for (var j = 0; j < word.length; j++) {
+                    if ((word[j] === userGuess)) {
+                      answerArray[j] = userGuess;
+                      remainingLetters--;
+                    }
+                }
+                                                                            
+
+            //HERE I UPDATE THE WIN COUNT (IF PLAYER HAS GUESSED ALL WORDS CORRECTLY THE remainingLetters COUNT GOES TO 0 = PLAYER WINS).
+            //WE GET A NEW WORD FROM WORDS ARRAY, COUNT THE QUANTITY OF WORDS LEFT.
+            //WE RESET VARIABLES remainingLetters, guesesremaining, lettersGuessed, answerArray.
+            //RUN LOOP FOR CREATING THE ANSWER ARRAY AND FILLING IT WITH UNDERSCORES TO MATCH THE QUANTITY OF LETTERS BEING GUESSED
+              if ((remainingLetters === 0)) {
+                  wins++; 
+                  word = words[Math.floor(Math.random() * words.length)];
+                  words.splice(0,1);
+                  remainingLetters = word.length;
+                  guesesremaining = word.length + 3;
+                  lettersGuessed = [];
+                  answerArray = [];
+
+                  for (var i = 0; i < word.length; i++){
+                      answerArray[i] = "_";
+                  };
+                      var html = "<p>word variable: " + word + "</p>";
+              } 
+  
+
+            //IF THE QUANTITY OF GUESSES BY PLAYER REACHES 0, THE PLAYER LOSS COUNT GOES UP BY 1 AND A NEW WORD IS OBTAINED.
+              if ((guesesremaining === 0)) {
+                  losses++; 
+                  word = words[Math.floor(Math.random() * words.length)];
+                  words.splice(0,1);
+                  remainingLetters = word.length;
+                  guesesremaining = word.length + 3;
+                  lettersGuessed = [];
+                  answerArray = [];
+
+                  for (var i = 0; i < word.length; i++){
+                      answerArray[i] = "_";
+                  };
+                      var html = "<p>word variable: " + word + "</p>"
+              }
+
+
+            //HERE WE CREATE THE HTML THAT WILL BE INJECTED INTO OUR DIV AND DISPLAYED ON THE PAGE.
+                var html =  "<h1> The Hangman Game </h1>" +
+                            "<p>PRESS ANY KEY TO GET STARTED</p>" +
+                            "<p>WINS: " + wins + "</p>" +
+                            "<p>LOSSES: " + losses + "</p>" +
+                            "<p>CURRENT WORD: " + answerArray.join() + "</p>" +
+                            "<p>GUESSES REMAINING BY PLAYER: " + guesesremaining + "</p>" +
+                            "<p>LETTERS ALREADY GUESSED: " + lettersGuessed.toString() + "</p>";
+        
+
+    //INJECTIN THE HTML WE JUST CREATED INTO OUR DIV AND UPDATING THE GAME INFORMATION IN OUR PAGE.
+      document.querySelector("#game").innerHTML = html;
+
+
+
+    }   // END OF if (words.length > 0) FUNCTION
+};      //END OF document.onkeyup = function(event)
+
+
+
+
+</script>
+</body>
+</html>
